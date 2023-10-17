@@ -1,0 +1,4 @@
+@host=https://localhost:7075/api
+@id=8ce14df1-aa8e-4203-a2dc-ec648e416c14
+
+GET {{host}}/products/{{id}}
