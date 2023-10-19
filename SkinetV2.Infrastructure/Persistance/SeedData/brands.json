@@ -1,0 +1,22 @@
+[
+    {
+        "ProductBrandId": "fb1b1af7-f1fb-4bb2-882e-7a42afe7119b",
+        "Name": "Angular"
+    },
+    {
+        "ProductBrandId": "e27bc1a8-7ca4-46c6-a59d-cbeb3d122297",
+        "Name": "NetCore"
+    },
+    {
+        "ProductBrandId": "ff35cdfc-5d4d-4cff-b255-11acd27dd81e",
+        "Name": "VS Code"
+    },
+    {
+        "ProductBrandId": "83271564-09be-4495-978a-ccc679d35f6e",
+        "Name": "React"
+    },
+    {
+        "ProductBrandId": "9d902d23-c6fd-4fc4-b041-4099f36a0e1a",
+        "Name": "Typescript"
+    }
+]

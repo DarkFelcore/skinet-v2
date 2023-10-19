@@ -4,11 +4,11 @@ namespace SkinetV2.Domain.Common.Errors
 {
     public partial class Errors
     {
-        public static class Product
+        public static class ProductTypes 
         {
             public static Error NotFound => Error.NotFound(
-                code: "Product.NotFound",
-                description: "No product(s) found."
+                code: "ProductTypes.NotFound",
+                description: "No product types found."
             );
         }
     }

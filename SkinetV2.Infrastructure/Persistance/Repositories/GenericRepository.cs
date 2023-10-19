@@ -20,7 +20,7 @@ namespace SkinetV2.Infrastructure.Persistance.Repositories
             return true;
         }
 
-        public async Task<List<T>> AllAsync()
+        public virtual async Task<List<T>> AllAsync()
         {
             return await DbSet.ToListAsync();
         }

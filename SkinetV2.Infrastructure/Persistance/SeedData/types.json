@@ -1,0 +1,18 @@
+[
+    {
+        "ProductTypeId": "164f5957-dc9b-4169-bdd5-ecb14ecee9c5",
+        "Name": "Boards"
+    },
+    {
+        "ProductTypeId": "70b7bcb6-7968-4fc9-a608-84090056bb56",
+        "Name": "Hats"
+    },
+    {
+        "ProductTypeId": "2c9c3b84-6f83-4dab-9787-fe172951d4a8",
+        "Name": "Boots"
+    },
+    {
+        "ProductTypeId": "19f97940-47f2-4c50-9df6-2bc69c9d58fc",
+        "Name": "Gloves"
+    }
+]

@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using SkinetV2.Domain.Products;
+using SkinetV2.Domain.Products.ProductBrands;
+using SkinetV2.Domain.Products.ProductBrands.ValueObjects;
+using SkinetV2.Domain.Products.ProductTypes;
+using SkinetV2.Domain.Products.ProductTypes.ValueObjects;
 using SkinetV2.Domain.Products.ValueObjects;
 
 namespace SkinetV2.Infrastructure.Persistance
@@ -17,6 +21,8 @@ namespace SkinetV2.Infrastructure.Persistance
 
         // Db Sets
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductBrand> ProductBrands { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,12 +30,53 @@ namespace SkinetV2.Infrastructure.Persistance
 
             // Products
             modelBuilder.Entity<Product>()
+                .HasKey(p => p.ProductId);
+            modelBuilder.Entity<Product>()
                 .Property(p => p.ProductId)
                 .HasConversion
                 (
                     id => id.Value, // way in
-                    value => new ProductId(value)
+                    value => new ProductId(value) // way out
                 );
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasColumnType("decimal(18, 2)");
+
+            // Product Brands
+            modelBuilder.Entity<ProductBrand>()
+                .HasKey(p => p.ProductBrandId);
+            modelBuilder.Entity<ProductBrand>()
+                .Property(pb => pb.ProductBrandId)
+                .HasConversion
+                (
+                    id => id.Value,
+                    value => new ProductBrandId(value)
+                );
+
+            // Product Types
+            modelBuilder.Entity<ProductType>()
+                .HasKey(p => p.ProductTypeId);
+            modelBuilder.Entity<ProductType>()
+                .Property(pb => pb.ProductTypeId)
+                .HasConversion
+                (
+                    id => id.Value,
+                    value => new ProductTypeId(value)
+                );
+
+            // Realtions //
+
+            // Product/ProductBrands - one-to-many
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.ProductBrand)
+                .WithMany()
+                .HasForeignKey(p => p.ProductBrandId);
+
+            // Product/ProductType - one-to-many
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.ProductType)
+                .WithMany()
+                .HasForeignKey(p => p.ProductTypeId);
         }
     }
 }

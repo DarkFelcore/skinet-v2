@@ -1,10 +1,13 @@
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SkinetV2.Application.ProductBrands;
 using SkinetV2.Application.Products.Get.All;
 using SkinetV2.Application.Products.Get.ById;
+using SkinetV2.Application.ProductTypes;
+using SkinetV2.Contracts.ProductBrands;
 using SkinetV2.Contracts.Products;
-using SkinetV2.Domain.Products;
+using SkinetV2.Contracts.ProductTypes;
 
 namespace SkinetV2.Api.Controllers
 {
@@ -41,6 +44,34 @@ namespace SkinetV2.Api.Controllers
 
             return result.Match(
                 result => Ok(_mapper.Map<ProductResponse>(result)),
+                Problem
+            );
+        }
+
+        [HttpGet("brands")]
+        public async Task<IActionResult> GetAllProductBrandsAsync()
+        {
+            var query = new GetAllProductBrandsQuery();
+            var result = await _mediator.Send(query);
+
+            var mappedProductBrands = result.Value.Select(pb => _mapper.Map<ProductBrandsReponse>(pb)).ToList();
+
+            return result.Match(
+                result => Ok(mappedProductBrands),
+                Problem
+            );
+        }
+
+        [HttpGet("types")]
+        public async Task<IActionResult> GetAllProductTypesAsync()
+        {
+            var query = new GetAllProductTypesQuery();
+            var result = await _mediator.Send(query);
+
+            var mappedProductTypes = result.Value.Select(pt => _mapper.Map<ProductTypesReponse>(pt)).ToList();
+
+            return result.Match(
+                result => Ok(mappedProductTypes),
                 Problem
             );
         }

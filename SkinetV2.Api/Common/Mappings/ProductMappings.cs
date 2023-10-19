@@ -10,6 +10,8 @@ namespace SkinetV2.Api.Common.Mappings
         {
             config.NewConfig<Product, ProductResponse>()
                 .Map(dest => dest.ProductId, src => src.ProductId.Value)
+                .Map(dest => dest.ProductBrandName, src => src.ProductBrand.Name)
+                .Map(dest => dest.ProductTypeName, src => src.ProductType.Name)
                 .Map(dest => dest, src => src);
         }
     }
