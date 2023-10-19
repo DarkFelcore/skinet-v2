@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SkinetV2.Application.common.Interfaces;
+using SkinetV2.Infrastructure.Persistance.Specifications;
 
 namespace SkinetV2.Infrastructure.Persistance.Repositories
 {
@@ -41,5 +42,22 @@ namespace SkinetV2.Infrastructure.Persistance.Repositories
             DbSet.Update(item);
             return true;
         }
+
+        public async Task<T?> GetEntityWithSpec(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<T>> GetListAsync(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).ToListAsync();
+        }
+
+        // This method is responsible for adding the where, includes, ect. from the specifications passed as parameter
+        private IQueryable<T> ApplySpecification(ISpecification<T> spec)
+        {
+            return SpecificationEvaluator<T>.GetQuery(DbSet.AsQueryable(), spec);
+        }
+
     }
 }

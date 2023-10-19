@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 {
     app.UseHttpsRedirection();
+    app.UseStaticFiles();
     app.MapControllers();
 
     // Apply automatic migrations and seed data into the database

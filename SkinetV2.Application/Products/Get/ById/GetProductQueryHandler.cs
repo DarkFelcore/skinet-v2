@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ErrorOr;
 using MediatR;
 using SkinetV2.Application.common.Interfaces;
 using SkinetV2.Domain.Common.Errors;
 using SkinetV2.Domain.Products;
+using SkinetV2.Domain.Products.ValueObjects;
+using SkinetV2.Infrastructure.Persistance.Specifications;
 
 namespace SkinetV2.Application.Products.Get.ById
 {
@@ -21,7 +19,9 @@ namespace SkinetV2.Application.Products.Get.ById
 
         public async Task<ErrorOr<Product>> Handle(GetProductQuery query, CancellationToken cancellationToken)
         {
-            var product = await _unitOfWork.ProductRepository.GetByIdAsync(Guid.Parse(query.ProductId));
+            var productId = new ProductId(Guid.Parse(query.ProductId));
+            var spec = new ProductsWithBrandsAndTypesSpecification(productId);
+            var product = await _unitOfWork.ProductRepository.GetEntityWithSpec(spec);
 
             if(product is null)
             {
