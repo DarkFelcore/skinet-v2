@@ -27,7 +27,7 @@ namespace SkinetV2.Infrastructure
                 });
                 // Do not enable this in production
                 //options.EnableDetailedErrors(true);
-                //options.EnableSensitiveDataLogging(true);
+                options.EnableSensitiveDataLogging(true);
             });
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();

@@ -8,6 +8,7 @@ using SkinetV2.Application.ProductTypes;
 using SkinetV2.Contracts.ProductBrands;
 using SkinetV2.Contracts.Products;
 using SkinetV2.Contracts.ProductTypes;
+using SkinetV2.Application.Helpers;
 
 namespace SkinetV2.Api.Controllers
 {
@@ -23,9 +24,10 @@ namespace SkinetV2.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProductsAsync()
+        public async Task<IActionResult> GetAllProductsAsync(string? sort, Guid? brandId, Guid? typeId, int? skip, int? take)
         {
-            var query = new GetAllProductsQuery();
+            var searchParams = new ProductSearchParams(sort, brandId, typeId, skip, take);
+            var query = _mapper.Map<GetAllProductsQuery>(searchParams);
             var result = await _mediator.Send(query);
 
             var mappedProducts = result.Value.Select(p => _mapper.Map<ProductResponse>(p)).ToList();

@@ -8,7 +8,12 @@ namespace SkinetV2.Api
     {
         public static IServiceCollection AddPresentation(this IServiceCollection services)
         {
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                });
             services.AddSingleton<ProblemDetailsFactory, SkinetProblemDetailFactory>();
             services.AddMappings();
             return services;

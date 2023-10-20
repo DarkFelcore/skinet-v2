@@ -1,4 +1,6 @@
 using Mapster;
+using SkinetV2.Application.Helpers;
+using SkinetV2.Application.Products.Get.All;
 using SkinetV2.Contracts.Products;
 using SkinetV2.Domain.Products;
 
@@ -9,6 +11,11 @@ namespace SkinetV2.Api.Common.Mappings
         const string apiUrl = "https://localhost:7075/";
         public void Register(TypeAdapterConfig config)
         {
+            config.NewConfig<ProductSearchParams, GetAllProductsQuery>()
+                .Map(dest => dest.Sort, src => src.Sort)
+                .Map(dest => dest.BrandId, src => src.BrandId)
+                .Map(dest => dest.TypeId, src => src.TypeId);
+
             config.NewConfig<Product, ProductResponse>()
                 .Map(dest => dest.ProductId, src => src.ProductId.Value)
                 .Map(dest => dest.ProductBrandName, src => src.ProductBrand.Name)
