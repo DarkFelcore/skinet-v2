@@ -1,0 +1,19 @@
+.btn-container {
+  width: 10rem;
+  margin-left: 2rem;
+}
+
+.cart-no {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  border-radius: 50%;
+  background-color: blue;
+  color: white;
+  min-width: 20px;
+  min-height: 20px;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

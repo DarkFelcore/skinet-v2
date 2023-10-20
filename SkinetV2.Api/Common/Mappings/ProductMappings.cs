@@ -11,10 +11,8 @@ namespace SkinetV2.Api.Common.Mappings
         const string apiUrl = "https://localhost:7075/";
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<ProductSearchParams, GetAllProductsQuery>()
-                .Map(dest => dest.Sort, src => src.Sort)
-                .Map(dest => dest.BrandId, src => src.BrandId)
-                .Map(dest => dest.TypeId, src => src.TypeId);
+            config.NewConfig<ProductSpecParams, GetAllProductsQuery>()
+                .Map(dest => dest, src => src);
 
             config.NewConfig<Product, ProductResponse>()
                 .Map(dest => dest.ProductId, src => src.ProductId.Value)

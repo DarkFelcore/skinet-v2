@@ -8,8 +8,8 @@ namespace SkinetV2.Infrastructure.Persistance.Specifications
 {
     public class ProductsWithBrandsAndTypesSpecification : BaseSpecification<Product>
     {
-        public ProductsWithBrandsAndTypesSpecification(string sort, ProductBrandId brandId, ProductTypeId typeId, int skip, int take)
-            : base(x => 
+        public ProductsWithBrandsAndTypesSpecification(string sort, ProductBrandId brandId, ProductTypeId typeId, int pageIndex, int pageSize)
+            : base(x =>
                 (!brandId.Value.HasValue || x.ProductBrandId == brandId) &&
                 (!typeId.Value.HasValue || x.ProductTypeId == typeId)
             )
@@ -19,7 +19,7 @@ namespace SkinetV2.Infrastructure.Persistance.Specifications
             // Default order by product name, if no sorting is specified
             AddOrderBy(x => x.Name);
 
-            ApplyPaging(skip, take);
+            ApplyPaging(pageSize * (pageIndex - 1), pageSize);
 
             // If a sort option is passed through the url
             if (!string.IsNullOrEmpty(sort))

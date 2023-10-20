@@ -16,6 +16,12 @@ namespace SkinetV2.Api
                 });
             services.AddSingleton<ProblemDetailsFactory, SkinetProblemDetailFactory>();
             services.AddMappings();
+            services.AddCors(options => options.AddPolicy(name: "CorsPolicy",
+                policy =>
+                {
+                    policy.WithOrigins("https://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+                }
+            ));
             return services;
         }
     }

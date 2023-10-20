@@ -22,7 +22,7 @@ namespace SkinetV2.Application.Products.Get.All
         {
             var productBrandId = new ProductBrandId(query.BrandId);
             var productTypeId = new ProductTypeId(query.TypeId);
-            var spec = new ProductsWithBrandsAndTypesSpecification(query.Sort!, productBrandId, productTypeId, query.Skip, query.Take);
+            var spec = new ProductsWithBrandsAndTypesSpecification(query.Sort!, productBrandId, productTypeId, query.PageIndex ?? 1, query.PageSize ?? 6);
             var products = await _unitOfWork.ProductRepository.GetListAsync(spec);
 
             if (products is null)

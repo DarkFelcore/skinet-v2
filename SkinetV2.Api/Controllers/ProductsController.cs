@@ -9,6 +9,7 @@ using SkinetV2.Contracts.ProductBrands;
 using SkinetV2.Contracts.Products;
 using SkinetV2.Contracts.ProductTypes;
 using SkinetV2.Application.Helpers;
+using SkinetV2.Contracts.Common;
 
 namespace SkinetV2.Api.Controllers
 {
@@ -24,16 +25,15 @@ namespace SkinetV2.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProductsAsync(string? sort, Guid? brandId, Guid? typeId, int? skip, int? take)
+        public async Task<IActionResult> GetAllProductsAsync([FromQuery] ProductSpecParams productSpecParams)
         {
-            var searchParams = new ProductSearchParams(sort, brandId, typeId, skip, take);
-            var query = _mapper.Map<GetAllProductsQuery>(searchParams);
+            var query = _mapper.Map<GetAllProductsQuery>(productSpecParams);
             var result = await _mediator.Send(query);
 
             var mappedProducts = result.Value.Select(p => _mapper.Map<ProductResponse>(p)).ToList();
 
             return result.Match(
-                result => Ok(mappedProducts),
+                result => Ok(new Pagination<ProductResponse>(productSpecParams.PageIndex ?? 1, productSpecParams.PageSize ?? 6, mappedProducts)),
                 Problem
             );
         }
