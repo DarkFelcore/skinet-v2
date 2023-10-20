@@ -12,8 +12,8 @@ namespace SkinetV2.Application.Helpers
             Sort = sort;
             BrandId = brandId;
             TypeId = typeId;
-            Skip = skip;
-            Take = take;
+            Skip = skip ?? 0;
+            Take = take ?? 50;
         }
     }
 }
