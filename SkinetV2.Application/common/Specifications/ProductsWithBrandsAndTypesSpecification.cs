@@ -8,8 +8,9 @@ namespace SkinetV2.Infrastructure.Persistance.Specifications
 {
     public class ProductsWithBrandsAndTypesSpecification : BaseSpecification<Product>
     {
-        public ProductsWithBrandsAndTypesSpecification(string sort, ProductBrandId brandId, ProductTypeId typeId, int pageIndex, int pageSize)
+        public ProductsWithBrandsAndTypesSpecification(string sort, ProductBrandId brandId, ProductTypeId typeId, int pageIndex, int pageSize, string search)
             : base(x =>
+                (string.IsNullOrEmpty(search) || x.Name.ToLower().Contains(search)) &&
                 (!brandId.Value.HasValue || x.ProductBrandId == brandId) &&
                 (!typeId.Value.HasValue || x.ProductTypeId == typeId)
             )

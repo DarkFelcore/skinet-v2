@@ -9,6 +9,7 @@ namespace SkinetV2.Application.Products.Get.All
         Guid? BrandId,
         Guid? TypeId,
         int? PageIndex,
-        int? PageSize
+        int? PageSize,
+        string? Search
     ) : IRequest<ErrorOr<List<Product>>>;
 }

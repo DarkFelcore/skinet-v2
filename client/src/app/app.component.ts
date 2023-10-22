@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Product } from './shared/models/product';
 import { Pagination } from './shared/models/common/pagination';
+import { Product } from './shared/models/common/product';
 
 @Component({
   selector: 'app-root',
@@ -10,18 +10,7 @@ import { Pagination } from './shared/models/common/pagination';
 })
 export class AppComponent implements OnInit {
 
-  products: Product[];
-  
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    this.http.get<Pagination<Product>>("https://localhost:7075/api/products").subscribe({
-      next: (res: Pagination<Product>) => this.products = res.data,
-      error: (err: HttpErrorResponse) => console.log(err)
-    })
-
-  }
-
+  ngOnInit(): void { }
 }

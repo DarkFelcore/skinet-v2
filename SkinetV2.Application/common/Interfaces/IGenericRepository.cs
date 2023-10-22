@@ -10,5 +10,6 @@ namespace SkinetV2.Application.common.Interfaces
         Task<bool> DeleteAsync(T item);
         Task<T?> GetEntityWithSpec(ISpecification<T> spec);
         Task<List<T>> GetListAsync(ISpecification<T> spec);
+        Task<int> CountAsync(ISpecification<T> spec);
     }
 }

@@ -1,6 +1,7 @@
 using Mapster;
 using SkinetV2.Application.Helpers;
 using SkinetV2.Application.Products.Get.All;
+using SkinetV2.Application.Products.Get.Count;
 using SkinetV2.Contracts.Products;
 using SkinetV2.Domain.Products;
 
@@ -12,6 +13,9 @@ namespace SkinetV2.Api.Common.Mappings
         public void Register(TypeAdapterConfig config)
         {
             config.NewConfig<ProductSpecParams, GetAllProductsQuery>()
+                .Map(dest => dest, src => src);
+
+            config.NewConfig<ProductSpecParams, GetAllProductsCountQuery>()
                 .Map(dest => dest, src => src);
 
             config.NewConfig<Product, ProductResponse>()

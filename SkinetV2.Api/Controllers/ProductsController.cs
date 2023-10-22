@@ -10,6 +10,7 @@ using SkinetV2.Contracts.Products;
 using SkinetV2.Contracts.ProductTypes;
 using SkinetV2.Application.Helpers;
 using SkinetV2.Contracts.Common;
+using SkinetV2.Application.Products.Get.Count;
 
 namespace SkinetV2.Api.Controllers
 {
@@ -32,8 +33,11 @@ namespace SkinetV2.Api.Controllers
 
             var mappedProducts = result.Value.Select(p => _mapper.Map<ProductResponse>(p)).ToList();
 
+            var queryCount = _mapper.Map<GetAllProductsCountQuery>(productSpecParams);
+            var resultCount = await _mediator.Send(queryCount);
+
             return result.Match(
-                result => Ok(new Pagination<ProductResponse>(productSpecParams.PageIndex ?? 1, productSpecParams.PageSize ?? 6, mappedProducts)),
+                result => Ok(new Pagination<ProductResponse>(productSpecParams.PageIndex ?? 1, productSpecParams.PageSize ?? 6, resultCount.Value, mappedProducts)),
                 Problem
             );
         }
