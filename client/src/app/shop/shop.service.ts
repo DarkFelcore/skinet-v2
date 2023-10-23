@@ -59,6 +59,10 @@ export class ShopService {
     return params;
   }
 
+  getProductById(productId: string): Observable<Product> {
+    return this.http.get<Product>(this.baseUrl + 'products/' + productId);
+  }
+
   getProductBrands(): Observable<Brand[]> {
     return this.http.get<Brand[]>(this.baseUrl + 'products/brands');
   }
@@ -70,6 +74,5 @@ export class ShopService {
   setResetValue(value: boolean) {
     this.resetSubject.next(value)
   }
-
 
 }
