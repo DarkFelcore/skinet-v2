@@ -1,3 +1,30 @@
 .card {
-    border-radius: 0 !important;
+  border-radius: 0 !important;
+}
+
+.hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease-in-out;
+
+  .button {
+    transition: all 0.5s ease;
+    z-index: 1000;
+  }
+
+  &:hover {
+    opacity: 1;
+
+    .button:nth-child(1) {
+      transform: translateX(7px);
+    }
+    .button:nth-child(2) {
+      transform: translateX(-7px);
+    }
+  }
 }

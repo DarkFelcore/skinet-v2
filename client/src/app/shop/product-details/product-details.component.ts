@@ -3,6 +3,7 @@ import { ShopService } from '../shop.service';
 import { Product } from 'src/app/shared/models/common/product';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
   selector: 'app-product-details',
@@ -14,8 +15,11 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private shopService: ShopService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private breadcrumbService: BreadcrumbService
+  ) {
+    this.breadcrumbService.set('@productDetails', 'Loading...')
+  }
 
   ngOnInit(): void {
     this.getProduct();
@@ -23,7 +27,10 @@ export class ProductDetailsComponent implements OnInit {
 
   getProduct() {
     this.shopService.getProductById(String(this.activatedRoute.snapshot.paramMap.get('productId'))).subscribe({
-      next: (response: Product) => this.product = response,
+      next: (response: Product) => {
+        this.product = response;
+        this.breadcrumbService.set('@productDetails', this.product.name ?? '')
+      },
       error: (err: HttpErrorResponse) => console.log(err)
     })
   }

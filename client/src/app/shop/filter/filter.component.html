@@ -1,5 +1,5 @@
 <div>
-    <div class="my-3">
+    <div class="mb-3">
         <h5 class="text-warning ms-3 mb-2">Sort</h5>
         <select [(ngModel)]="selectedSort" (change)="onSortSelected($event)" class="form-select">
             <option *ngFor="let option of sortOptions" [value]="option.value">

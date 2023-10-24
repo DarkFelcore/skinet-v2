@@ -1,17 +1,19 @@
 <div class="card h-100 box-shadow">
-    <img class="bg-info img-fluid" src={{product.pictureUrl}} alt={{product.name}}>
+    <div class="image position-relative">
+        <img class="bg-info img-fluid" src={{product.pictureUrl}} alt={{product.name}}>
+        <div class="d-flex align-items-center justify-content-center gap-4 hover-overlay w-100 px-3">
+            <app-icon-button class="button" style="width: inherit;" className="btn btn-primary btn-cart w-100" icon="fa fa-shopping-cart"></app-icon-button>
+            <app-button class="button" routerLink="/shop/{{product.productId}}"
+            routerLinkActive="router-link-active" style="width: inherit;" className="btn btn-primary btn-view w-100" label="View"></app-button>
+        </div>
+    </div>
     <div class="card-body d-flex flex-column">
         <a routerLink="/shop/{{product.productId}}">
             <h6 class="text-uppercase">{{product.name}}</h6>
         </a>
 
         <span class="mb-2">{{ product.price | currency: 'EUR' }}</span>
-        
-        <div class="d-flex w-100 align-items-center gap-2">
-            <app-icon-button style="width: inherit;" className="btn btn-outline-secondary btn-cart w-100" icon="fa fa-shopping-cart"></app-icon-button>
-            <app-button routerLink="/shop/{{product.productId}}"
-            routerLinkActive="router-link-active" style="width: inherit;" className="btn btn-outline-secondary btn-view w-100" label="View"></app-button>
-        </div>
-        
     </div>
 </div>
+
+

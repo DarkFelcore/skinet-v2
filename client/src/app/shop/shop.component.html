@@ -1,16 +1,18 @@
 <div class="container">
     <div class="row">
         <section class="col-md-3">
-          <app-filter
-            (sortEvent)="onSortSelected($event)"
-            (brandEvent)="onBrandSelected($event)" 
-            (typeEvent)="onTypeSelected($event)"
-            [brands]="brands" 
-            [types]="types">
-        </app-filter>
+            <ng-container *ngIf="brands && types">
+                <app-filter
+                (sortEvent)="onSortSelected($event)"
+                (brandEvent)="onBrandSelected($event)" 
+                (typeEvent)="onTypeSelected($event)"
+                [brands]="brands" 
+                [types]="types">
+            </app-filter>
+            </ng-container>
         </section>
         <section class="col-md-9">
-            <div class="d-flex justify-content-between align-items-center px-1 mb-2">
+            <div *ngIf="products" class="d-flex justify-content-between align-items-center px-1 mb-2">
                 <!-- Pagination header -->
                 <app-pagination-header
                     [products]="products"
@@ -18,7 +20,7 @@
                     [pageIndex]="pageIndex!"
                     [pageSize]="pageSize!">
                 </app-pagination-header>
-                <div class="d-flex align-items-center gap-2 mt-2">
+                <div class="d-flex align-items-center gap-2">
                     <app-text-input (keyup.enter)="onSearch()" #search width="300px"></app-text-input>
                     <app-button (click)="onSearch()" className="btn btn-outline-primary" label="Search" color="primary"></app-button>
                     <app-button (click)="onReset()" className="btn btn-outline-success" label="Reset" color="success"></app-button>
@@ -27,7 +29,7 @@
 
             <!-- Products -->
             <div class="row">
-                <div class="col-md-4 mb-3" *ngFor="let product of products">
+                <div class="col-md-4 my-3" *ngFor="let product of products">
                   <app-product-item [product]="product"></app-product-item>
                 </div>
             </div>

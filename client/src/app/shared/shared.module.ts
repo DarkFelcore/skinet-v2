@@ -6,6 +6,7 @@ import { IconButtonComponent } from './components/icon-button/icon-button.compon
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { PaginationHeaderComponent } from './components/pagination-header/pagination-header.component';
 import { FormsModule } from '@angular/forms';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [
@@ -17,14 +18,16 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    CarouselModule.forRoot(),
   ],
   exports: [
     ButtonComponent,
     TextInputComponent,
     IconButtonComponent,
     PaginationComponent,
-    PaginationHeaderComponent
+    PaginationHeaderComponent,
+    CarouselModule
   ]
 })
 export class SharedModule { }
