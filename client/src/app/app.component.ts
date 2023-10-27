@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Pagination } from './shared/models/common/pagination';
 import { Product } from './shared/models/common/product';
+import { BasketService } from './basket/basket.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,14 @@ import { Product } from './shared/models/common/product';
 })
 export class AppComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private backendService: BasketService
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    const basketId : string | null = localStorage.getItem('basket_id');
+    if(basketId) {
+      this.backendService.getBasket(basketId).subscribe();
+    }
+  }
 }

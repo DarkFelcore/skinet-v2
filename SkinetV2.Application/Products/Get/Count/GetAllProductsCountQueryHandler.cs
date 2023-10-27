@@ -20,7 +20,7 @@ namespace SkinetV2.Application.Products.Get.Count
         {
             var productBrandId = new ProductBrandId(query.BrandId);
             var productTypeId = new ProductTypeId(query.TypeId);
-            var spec = new ProductWithFiltersForCountSpecification(productBrandId, productTypeId);
+            var spec = new ProductWithFiltersForCountSpecification(productBrandId, productTypeId, query.Search!);
             return await _unitOfWork.ProductRepository.CountAsync(spec);
         }
     }

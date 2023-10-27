@@ -18,13 +18,7 @@ namespace SkinetV2.Application.Baskets.Get
         public async Task<ErrorOr<CustomerBasket>> Handle(GetBasketByIdQuery query, CancellationToken cancellationToken)
         {
             var basket = await _basketRepository.GetBasketAsync(query.BasketId);
-            
-            if(basket is null)
-            {
-                return Errors.Basket.EmptyBasket;
-            }
-
-            return basket;
+            return basket ?? new CustomerBasket(query.BasketId);
         }
     }
 }

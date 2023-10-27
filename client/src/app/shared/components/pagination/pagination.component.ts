@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PaginationService } from 'src/app/shared/services/pagination.service';
+import { Product } from '../../models/common/product';
 
 @Component({
   selector: 'app-pagination',
@@ -10,6 +11,7 @@ export class PaginationComponent implements OnInit {
   @Input() pageIndex: number | undefined;
   @Input() pageSize: number | undefined;
   @Input() totalCount: number | undefined;
+  @Input() products: Product | undefined
   
   currentPage: number = 1;
   totalPages: number[];

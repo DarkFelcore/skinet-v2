@@ -7,10 +7,10 @@
             <h3>{{product.name}}</h3>
             <p style="font-size: 1.5rem;">{{product.price | currency: 'EUR'}}</p>
             <div class="d-flex justify-content-start align-items-center gap-3">
-                <i class="fa fa-minus-circle text-warning" style="cursor: pointer; font-size: 2em;"></i>
-                <span style="font-size: 1.3rem; font-weight: bold;">2</span>
-                <i class="fa fa-plus-circle text-warning" style="cursor: pointer; font-size: 2em;"></i>
-                <app-button label="Add to cart" className="btn btn-outline-primary btn-lg"></app-button>
+                <i (click)="decrementProductQuantity()" class="fa fa-minus-circle text-warning" style="cursor: pointer; font-size: 2em;"></i>
+                <span style="font-size: 1.3rem; font-weight: bold;">{{quantity}}</span>
+                <i (click)="incrementProductQuantity()" class="fa fa-plus-circle text-warning" style="cursor: pointer; font-size: 2em;"></i>
+                <app-button (click)="addProductToBasket()" label="Add to cart" className="btn btn-outline-primary btn-lg"></app-button>
             </div>
         </div>
         <div class="row mt-5">

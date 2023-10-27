@@ -1,20 +1,21 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { EMPTY_GUID } from 'src/app/shared/constants/constants';
-import { environment } from 'src/environments/environment';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { BasketService } from 'src/app/basket/basket.service';
+import { Basket } from 'src/app/shared/models/common/basket';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
 
-  constructor(private http: HttpClient) {}
+  basket$: Observable<Basket | null>;
 
-  get404Error() {
-    return this.http.get(environment.apiUrl + "products/" + EMPTY_GUID).subscribe({
-      next: () => {},
-    });
+  constructor(private basketService: BasketService) {}
+
+  ngOnInit(): void {
+    this.basket$ = this.basketService.basket$;
   }
+
 }

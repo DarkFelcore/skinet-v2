@@ -21,7 +21,7 @@
                     [pageSize]="pageSize!">
                 </app-pagination-header>
                 <div class="d-flex align-items-center gap-2">
-                    <app-text-input (keyup.enter)="onSearch()" #search width="300px"></app-text-input>
+                    <app-text-input placeholder="Search.." (keyup.enter)="onSearch()" #search width="300px"></app-text-input>
                     <app-button (click)="onSearch()" className="btn btn-outline-primary" label="Search" color="primary"></app-button>
                     <app-button (click)="onReset()" className="btn btn-outline-success" label="Reset" color="success"></app-button>
                 </div>

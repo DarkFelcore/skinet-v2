@@ -7,6 +7,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { PaginationHeaderComponent } from './components/pagination-header/pagination-header.component';
 import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     TextInputComponent,
     IconButtonComponent,
     PaginationComponent,
-    PaginationHeaderComponent
+    PaginationHeaderComponent,
+    OrderSummaryComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     IconButtonComponent,
     PaginationComponent,
     PaginationHeaderComponent,
+    OrderSummaryComponent,
     CarouselModule
   ]
 })

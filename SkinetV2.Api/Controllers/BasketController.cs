@@ -27,15 +27,8 @@ namespace SkinetV2.Api.Controllers
             var query = _mapper.Map<GetBasketByIdQuery>(request);
             var result = await _sender.Send(query);
 
-            // In case a basket is request with a non-existing basketId
-            // Error is thrown in the GetBasketIdQueryHandler
-            if (result.IsError)
-            {
-                return NotFound(result.FirstError);
-            }
-
             return result.Match(
-                result => Ok(result),
+                _ => Ok(result.Value),
                 Problem
             );
         }

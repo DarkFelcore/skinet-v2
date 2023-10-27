@@ -10,12 +10,13 @@
             routerLink="/shop" 
             routerLinkActive="active" 
             class="nav-link p-2 text-decoration-none text-uppercase">Shop</a>
-        <app-button className="btn btn-outline-secondary" (click)="get404Error()" label="Error"></app-button>
     </nav>
     <div class="d-flex align-items-center gap-3">
-        <a class="position-relative">
+        <a routerLink="/basket" class="position-relative">
             <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
-            <div class="cart-no">5</div>
+            <div *ngIf="(basket$ | async) as basket" class="cart-no">
+                {{basket.basketItems.length}}
+            </div>
         </a>
         <div class="btn-container d-flex justify-content-between">
             <app-button className="btn btn-outline-primary"  label="Login"></app-button>

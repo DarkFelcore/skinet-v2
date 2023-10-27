@@ -1,5 +1,5 @@
 <header>
-    <span>
+    <span *ngIf="products && products.length > 0">
         Showing 
         <strong>
             {{pageSize && pageIndex && (pageIndex - 1) * pageSize + 1}} 
