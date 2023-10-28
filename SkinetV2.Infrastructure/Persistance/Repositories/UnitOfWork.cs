@@ -7,6 +7,7 @@ namespace SkinetV2.Infrastructure.Persistance.Repositories
         private readonly StoreContext _context;
 
         public IProductRepository ProductRepository { get; private set; }
+        public IUserRepository UserRepository { get; private set; }
 
         public UnitOfWork(StoreContext context)
         {
@@ -14,6 +15,7 @@ namespace SkinetV2.Infrastructure.Persistance.Repositories
 
             // Repositories
             ProductRepository = new ProductRepository(_context);
+            UserRepository = new UserRepository(_context);
         }
 
         public async Task CompleteAsync()

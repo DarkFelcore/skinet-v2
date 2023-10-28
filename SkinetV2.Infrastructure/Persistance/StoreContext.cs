@@ -5,6 +5,8 @@ using SkinetV2.Domain.Products.ProductBrands.ValueObjects;
 using SkinetV2.Domain.Products.ProductTypes;
 using SkinetV2.Domain.Products.ProductTypes.ValueObjects;
 using SkinetV2.Domain.Products.ValueObjects;
+using SkinetV2.Domain.Users;
+using SkinetV2.Domain.Users.ValueObjects;
 
 namespace SkinetV2.Infrastructure.Persistance
 {
@@ -23,6 +25,7 @@ namespace SkinetV2.Infrastructure.Persistance
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,6 +66,21 @@ namespace SkinetV2.Infrastructure.Persistance
                     id => id.Value,
                     value => new ProductTypeId(value)
                 );
+
+            // Users
+            modelBuilder.Entity<User>()
+                .HasKey(u => u.UserId);
+                
+            modelBuilder.Entity<User>()
+                .Property(u => u.UserId)
+                .HasConversion
+                (
+                    id => id.Value,
+                    value => new UserId(value)
+                );
+
+            modelBuilder.Entity<User>()
+                .OwnsOne(u => u.Address);
 
             // Realtions //
 

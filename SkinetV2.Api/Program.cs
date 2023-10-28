@@ -18,6 +18,8 @@ var app = builder.Build();
     app.UseHttpsRedirection();
     app.UseCors("CorsPolicy");
     app.UseStaticFiles();
+    app.UseAuthentication();
+    app.UseAuthorization();
     app.MapControllers();
 
     // Apply automatic migrations and seed data into the database

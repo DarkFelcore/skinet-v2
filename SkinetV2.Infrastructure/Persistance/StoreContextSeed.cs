@@ -5,6 +5,8 @@ using SkinetV2.Domain.Products;
 using SkinetV2.Domain.Products.ProductBrands;
 using SkinetV2.Domain.Products.ProductBrands.ValueObjects;
 using SkinetV2.Domain.Products.ProductTypes;
+using SkinetV2.Domain.Users;
+using SkinetV2.Domain.Users.ValueObjects;
 using SkinetV2.Infrastructure.Persistance.JsonConverters;
 
 namespace SkinetV2.Infrastructure.Persistance
@@ -59,6 +61,28 @@ namespace SkinetV2.Infrastructure.Persistance
                     await context.SaveChangesAsync();
                 }
 
+                if (!context.Users.Any())
+                {
+                    var user = new User
+                    {
+                        UserId = new UserId(Guid.NewGuid()),
+                        FirstName = "Anthony",
+                        LastName = "Deville",
+                        Email = "test@test.be",
+                        PasswordHash = BCrypt.Net.BCrypt.HashPassword("Password123!"),
+                        Address = new Address
+                        {
+                            Street = "Sellaerstraat 40",
+                            PostalCode = "1820",
+                            City = "Steenokkerzeel",
+                            Provice = "Vlaams-Brabant",
+                            Country = "Belgium"
+                        }
+                    };
+
+                    await context.AddAsync(user);
+                    await context.SaveChangesAsync();
+                }
             }
             catch (Exception ex)
             {

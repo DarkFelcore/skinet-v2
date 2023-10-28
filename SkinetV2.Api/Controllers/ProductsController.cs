@@ -11,6 +11,7 @@ using SkinetV2.Contracts.ProductTypes;
 using SkinetV2.Application.Helpers;
 using SkinetV2.Contracts.Common;
 using SkinetV2.Application.Products.Get.Count;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SkinetV2.Api.Controllers
 {

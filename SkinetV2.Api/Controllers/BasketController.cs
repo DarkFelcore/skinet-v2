@@ -6,8 +6,6 @@ using SkinetV2.Application.Baskets.Get;
 using SkinetV2.Application.Baskets.Update;
 using SkinetV2.Contracts.Baskets;
 using SkinetV2.Domain.Baskets;
-using SkinetV2.Domain.Common.Errors;
-
 namespace SkinetV2.Api.Controllers
 {
     public class BasketController : ApiController
