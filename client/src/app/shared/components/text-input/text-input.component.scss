@@ -1,0 +1,16 @@
+.form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px 0;
+
+    &:focus {
+        z-index: 2;
+    }
+}
+.invalid-feedback {
+    display: flex;
+    flex-direction: column;
+}

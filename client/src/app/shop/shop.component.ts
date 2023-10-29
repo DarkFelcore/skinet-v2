@@ -101,12 +101,12 @@ export class ShopComponent {
   }
   
   onSearch() {
-    this.shopParams.search = this.searchTerm.value;
+    this.shopParams.search = this.searchTerm.controlDir.control?.value;
     this.paginationService.setCurrentPage(1);
   }
   
   onReset() {
-    this.searchTerm.value = '';
+    this.searchTerm.controlDir.control?.setValue('');
     this.shopParams = new ShopParams();
     this.paginationService.setCurrentPage(1);
     this.shopService.setResetValue(true);

@@ -22,12 +22,14 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err: any) => {
         if(err) {
+          console.log(err)
           if(err.error.status === 400) {
             var errorsMessages = Object.values(err.error.errors).join(', ')
             this.toastr.error(errorsMessages)
           }
-          if(err.error.status === 401) {
-            this.toastr.error("Unauthorized")
+          if(err.error.status === 401 || err.status === 401) {
+            console.log(err)
+            this.toastr.error(err.error.title)
           }
           if(err.error.status === 404) {
             const navigateionExtras: NavigationExtras = {state: {error: err.error}}

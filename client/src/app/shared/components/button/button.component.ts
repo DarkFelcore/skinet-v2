@@ -10,4 +10,5 @@ export class ButtonComponent {
   @Input() label: string;
   @Input() type: 'submit' | 'button' = 'button';
   @Input() className: string;
+  @Input() disabled: boolean = false;
 }

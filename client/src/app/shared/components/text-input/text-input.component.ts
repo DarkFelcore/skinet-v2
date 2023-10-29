@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, Self, ViewChild } from '@angular/core';
+import { AbstractControl, NgControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-text-input',
@@ -6,14 +7,35 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
   styleUrls: ['./text-input.component.scss']
 })
 export class TextInputComponent {
-  @Input() type: 'text' | 'password' | 'email' = 'text';
-  @Input() width: string;
-  @Input() class: string = 'form-control';
-  @Input() placeholder: string;
+  @ViewChild('input', {static : true}) input: ElementRef; // reference to the input field
+  @Input() type : 'email' | 'text' | 'password' = 'text'; // input type (password, text, date, button, ...)
+  @Input() label: string; // Label that describes the input field
 
-  value: string;
+  constructor(
+    @Self() public controlDir: NgControl
+  ) {
+    // Bind the valueAccessor to this particular class, which lets us access the control directive inside our component + template
+    this.controlDir.valueAccessor = this;
+  }
 
-  getStyle() {
-    return this.width;
+  ngOnInit(): void {
+    const control = this.controlDir.control as AbstractControl;
+    control.updateValueAndValidity();
+  }
+
+  onChange(event? : any) { }
+
+  onTouched(event? : any) {}
+
+  writeValue(obj: any): void {
+    this.input.nativeElement.value = obj || '';
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 }

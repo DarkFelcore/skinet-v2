@@ -1,0 +1,16 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
+    
+    <app-text-input
+        [formControlName]="'email'"
+        [label]="'Email address'">
+    </app-text-input>
+
+    <app-text-input
+        [formControlName]="'password'"
+        [label]="'Password'"
+        [type]="'password'">
+    </app-text-input>
+
+    <app-button [disabled]="loginForm.invalid" type="submit" label="Sign in" className="btn btn-primary w-100" class="w-100"></app-button>
+</form>

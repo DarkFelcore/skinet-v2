@@ -6,6 +6,7 @@ using SkinetV2.Api.Extensions;
 using SkinetV2.Application.Authentication.Addresses.Get;
 using SkinetV2.Application.Authentication.Addresses.Update;
 using SkinetV2.Application.Authentication.CurrentUser;
+using SkinetV2.Application.Authentication.EmailExists;
 using SkinetV2.Application.Authentication.Login;
 using SkinetV2.Application.Authentication.Register;
 using SkinetV2.Contracts.Authentication;
@@ -35,6 +36,18 @@ namespace SkinetV2.Api.Controllers
 
             return result.Match(
                 result => Ok(_mapper.Map<AuthenticationResponse>(result)),
+                Problem
+            );
+        }
+
+        [HttpGet("emailexists")]
+        public async Task<IActionResult> CheckEmailExistsAsync([FromQuery]string email)
+        {
+            var query = new CheckEmailExistsQuery(email);
+            var result = await _mediator.Send(query);
+
+            return result.Match(
+                result => Ok(result),
                 Problem
             );
         }
