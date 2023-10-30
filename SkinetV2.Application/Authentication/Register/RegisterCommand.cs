@@ -10,6 +10,6 @@ namespace SkinetV2.Application.Authentication.Register
         string LastName,
         string Email,
         string Password,
-        Address Address
+        Address? Address
     ) : IRequest<ErrorOr<AuthenticationResult>>;
 }

@@ -1,17 +1,24 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace SkinetV2.Domain.Users.ValueObjects
 {
     public class Address
     {
-        public required string Street { get; set; }
+        public string? Street { get; set; } = null;
 
-        public required string PostalCode { get; set; }
+        public string? PostalCode { get; set; } = null;
 
-        public required string Provice { get; set; }
+        public string? Provice { get; set; } = null;
 
-        public required string City { get; set; }
+        public string? City { get; set; } = null;
 
-        public required string Country { get; set; }
+        public string? Country { get; set; } = null;
+
+        public Address(string? street = null, string? postalCode = null, string? provice = null, string? city = null, string? country = null)
+        {
+            Street = street;
+            PostalCode = postalCode;
+            Provice = provice;
+            City = city;
+            Country = country;
+        }
     }
 }

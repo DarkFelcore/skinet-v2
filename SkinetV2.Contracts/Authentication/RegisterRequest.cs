@@ -7,6 +7,6 @@ namespace SkinetV2.Contracts.Authentication
         string LastName,
         string Email,
         string Password,
-        AddressRequest Address
+        AddressRequest? Address
     );
 }

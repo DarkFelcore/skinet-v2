@@ -21,7 +21,7 @@ namespace SkinetV2.Application.Authentication.Register
 
         public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
         {
-            if((await _unitOfWork.UserRepository.GetUserByEmailAsync(command.Email)) is not null)
+            if ((await _unitOfWork.UserRepository.GetUserByEmailAsync(command.Email)) is not null)
             {
                 return Errors.Users.DuplicateEmailAddress;
             }
@@ -37,14 +37,14 @@ namespace SkinetV2.Application.Authentication.Register
                 LastName = command.LastName,
                 Email = command.Email,
                 PasswordHash = passwordHash,
-                Address = new Address
-                {
-                    Street = command.Address.Street,
-                    PostalCode = command.Address.PostalCode,
-                    Provice = command.Address.Provice,
-                    City = command.Address.City,
-                    Country = command.Address.Country,
-                }
+                // If the no address is specified, set all the addresss properties to null
+                // If only one address property is specified, set all the addresses properties to null
+                // If all the addresses properties are specified, set the address for the user
+                Address = command.Address is not null 
+                    ? command.Address!.Street is not null && command.Address!.PostalCode is not null && command.Address!.Provice is not null && command.Address!.City is not null && command.Address!.Country is not null
+                         ? new Address(command.Address!.Street, command.Address.PostalCode, command.Address.Provice, command.Address.City, command.Address.Country)
+                         : null
+                    : null
             };
 
             await _unitOfWork.UserRepository.AddAsync(user);

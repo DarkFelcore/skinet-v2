@@ -8,6 +8,6 @@ namespace SkinetV2.Contracts.Authentication
         string LastName,
         string Email,
         string Token,
-        AddressResponse Address
+        AddressResponse? Address
     );
 }

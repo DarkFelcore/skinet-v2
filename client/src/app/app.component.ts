@@ -30,12 +30,10 @@ export class AppComponent implements OnInit {
   }
 
   loadCurrentUser() {
-    const token: string | null = localStorage.getItem('token');
-    if(token) {
-      this.authService.loadCurrentUser(token).subscribe({
-        next: () => console.log('loaded user successfully'),
-        error: () => localStorage.removeItem('token')
-      });
-    }
+    const token = localStorage.getItem('token') as string;
+    this.authService.loadCurrentUser(token).subscribe({
+      next: () => {},
+      error: () => localStorage.removeItem('token')
+    });
   }
 }

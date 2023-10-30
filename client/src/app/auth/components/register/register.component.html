@@ -1,1 +1,32 @@
-<p>register works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="registerForm" class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal text-center">Please sign up</h1>
+
+    <ul *ngIf="errors.length > 0">
+        <li *ngFor="let error of errors" class="text-danger">{{error}}</li>
+    </ul>
+    
+    <app-text-input
+        [formControlName]="'firstName'"
+        [label]="'First name'">
+    </app-text-input>
+
+    <app-text-input
+        [formControlName]="'lastName'"
+        [label]="'Last name'">
+    </app-text-input>
+
+    <app-text-input
+        [patternErrorMessage]="'Email is invalid.'"
+        [formControlName]="'email'"
+        [label]="'Email address'">
+    </app-text-input>
+
+    <app-text-input
+        [patternErrorMessage]="'Password is invalid. Requirements: minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.'"
+        [formControlName]="'password'"
+        [label]="'Password'"
+        [type]="'password'">
+    </app-text-input>
+
+    <app-button [disabled]="registerForm.invalid" type="submit" label="Sign up" className="btn btn-primary w-100" class="w-100"></app-button>
+</form>
