@@ -8,6 +8,8 @@ namespace SkinetV2.Infrastructure.Persistance.Repositories
 
         public IProductRepository ProductRepository { get; private set; }
         public IUserRepository UserRepository { get; private set; }
+        public IOrderRepository OrderRepository { get; private set; }
+        public IDeliveryMethodRepository DeliveryMethodRepository { get; private set; }
 
         public UnitOfWork(StoreContext context)
         {
@@ -16,6 +18,8 @@ namespace SkinetV2.Infrastructure.Persistance.Repositories
             // Repositories
             ProductRepository = new ProductRepository(_context);
             UserRepository = new UserRepository(_context);
+            OrderRepository = new OrderRepository(_context);
+            DeliveryMethodRepository = new DeliveryMethodRepository(_context);
         }
 
         public async Task CompleteAsync()

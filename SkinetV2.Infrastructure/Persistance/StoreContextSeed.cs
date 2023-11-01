@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.Logging;
+using SkinetV2.Domain.Orders.Entities;
 using SkinetV2.Domain.Products;
 using SkinetV2.Domain.Products.ProductBrands;
 using SkinetV2.Domain.Products.ProductBrands.ValueObjects;
@@ -17,6 +18,20 @@ namespace SkinetV2.Infrastructure.Persistance
         {
             try
             {
+                if(!context.DeliveryMethods.Any())
+                {
+                    var optionsTypeId = new JsonSerializerOptions();
+                    optionsTypeId.Converters.Add(new DeliveryMethodIdConverter());
+                    var deliveryMethodsData = File.ReadAllText("../SkinetV2.Infrastructure/Persistance/SeedData/delivery.json");
+                    var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveryMethodsData, optionsTypeId)!;
+
+                    foreach (var item in deliveryMethods)
+                    {
+                        await context.DeliveryMethods.AddAsync(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
                 if (!context.ProductBrands.Any())
                 {
                     var optionsBrandId = new JsonSerializerOptions();

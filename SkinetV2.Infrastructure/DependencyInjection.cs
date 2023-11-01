@@ -52,6 +52,8 @@ namespace SkinetV2.Infrastructure
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IDeliveryMethodRepository, DeliveryMethodRepository>();
             return services;
         }
 
