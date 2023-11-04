@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { LoginRequest } from '../shared/models/login-request';
 import { RegisterRequest } from '../shared/models/register-request';
 import { Router } from '@angular/router';
+import { Address } from '../shared/models/common/address';
 
 @Injectable({
   providedIn: 'root'
@@ -20,18 +21,8 @@ export class AuthService {
     private router: Router,
   ) { }
 
-  loadCurrentUser(token: string) {
-
-    if(token === null) {
-      this.currentUserSource.next(null);
-      return of(null);
-    }
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    
-    return this.http.get<User>(environment.apiUrl + 'auth', { headers }).pipe(
+  loadCurrentUser() {
+    return this.http.get<User>(environment.apiUrl + 'auth').pipe(
       map((user: User | null) => {
         if(user) {
           localStorage.setItem('token', user.token);
@@ -61,13 +52,25 @@ export class AuthService {
   }
 
   logout() : void {
+    this.clearUser();
+    this.router.navigateByUrl('/');
+  }
+
+  clearUser(): void {
     localStorage.removeItem('token');
     this.currentUserSource.next(null);
-    this.router.navigateByUrl('/');
   }
 
   checkEmailExists(email: string) {
     return this.http.get<boolean>(environment.apiUrl + 'auth/emailexists?email=' + email)
+  }
+
+  getUserAddress() {
+    return this.http.get<Address>(environment.apiUrl + 'auth/address');
+  }
+
+  updateUserAddress(address: Address) {
+    return this.http.put<Address>(environment.apiUrl + 'auth/address', address);
   }
 
 }

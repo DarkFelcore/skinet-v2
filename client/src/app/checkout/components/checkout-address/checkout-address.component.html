@@ -1,0 +1,39 @@
+<div [formGroup]="checkoutForm" class="mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>Shipping address</h4>
+        <app-button
+            [disabled]="checkoutForm.get('addressForm')?.invalid || checkoutForm.get('addressForm')?.value === currentUser.address" 
+            label="Save as default address" 
+            className="btn btn-outline-success"
+            (click)="saveUserAddress()">
+        </app-button>
+    </div>
+    <div class="row" formGroupName="addressForm">
+        <div class="form-group col-md-6">
+            <app-text-input [label]="'First Name'" [placeHolder]="'Enter your first name'" formControlName="firstName" [isDisabled]="true"></app-text-input>
+        </div>
+        <div class="form-group col-md-6">
+            <app-text-input [label]="'Last Name'" [placeHolder]="'Enter your last name'" formControlName="lastName" [isDisabled]="true"></app-text-input>
+        </div>
+        <div class="form-group col-md-6">
+            <app-text-input [label]="'Street'" [placeHolder]="'Enter your street'" formControlName="street"></app-text-input>
+        </div>
+        <div class="form-group col-md-6">
+            <app-text-input [label]="'Postal Code'" [placeHolder]="'Enter your postal code'" formControlName="postalCode"></app-text-input>
+        </div>
+        <div class="form-group col-md-6">
+            <app-text-input [label]="'Provice'" [placeHolder]="'Enter your provice'" formControlName="provice"></app-text-input>
+        </div>
+        <div class="form-group col-md-6">
+            <app-text-input [label]="'City'" [placeHolder]="'Enter your city'" formControlName="city"></app-text-input>
+        </div>
+        <div class="form-group col-md-12">
+            <app-text-input [label]="'Country'" [placeHolder]="'Enter your country'" formControlName="country"></app-text-input>
+        </div>
+    </div>
+</div>
+
+<div class="float-none d-flex justify-content-between flex-column flex-lg-row mt-5">
+    <app-icon-button iconPosition="left" icon="fa fa-angle-left" className="btn btn-outline-primary" routerLink="/basket" label="Back to basket"></app-icon-button>
+    <app-icon-button [disabled]="checkoutForm.get('addressForm')?.invalid" iconPosition="right" icon="fa fa-angle-right" className="btn btn-primary" label="Go to delivery" step="next"></app-icon-button>
+</div>

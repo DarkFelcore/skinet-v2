@@ -31,7 +31,9 @@ export class PaginationComponent implements OnInit {
   }
 
   generatePageRange(): void {
-    const pageCount = Math.floor((this.totalCount ?? 0) / (this.pageSize ?? 6) + 1);
+    const pageCount = Math.ceil((this.totalCount ?? 0) / (this.pageSize ?? 6));
+
+
     const pageRange: number[] = [];
     
     for (let i = 1; i <= pageCount; i++) {

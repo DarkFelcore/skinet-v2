@@ -15,6 +15,7 @@ namespace SkinetV2.Domain.Common.Errors
                 code: "Users.InvalidCredentials",
                 description: "Invalid credentials"
             );
+            
         }
     }
 }

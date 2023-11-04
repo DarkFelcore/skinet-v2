@@ -23,7 +23,6 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((err: any) => {
         if(err) {
           if(err.error.status === 401 || err.status === 401) {
-            console.log(err)
             this.toastr.error(err.error.title)
           }
           if(err.error.status === 404) {

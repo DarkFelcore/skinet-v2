@@ -1,12 +1,12 @@
 <div class="form-label-group">
     <label for="{{label}}">{{label}}</label>
     <div class="position-relative">
-        <input #input [ngClass]="(controlDir.control && controlDir.control.touched) 
+        <input #input [disabled]="isDisabled" [ngClass]="(controlDir.control && controlDir.control.touched) 
                 ? !controlDir.control.valid 
                 ? 'is-invalid' 
                 : 'is-valid' 
                 : null" [type]="type" (input)="onChange(input.value)" (blur)="onTouched(input.value)" id="{{label}}"
-            class="form-control" placeholder="{{label}}" autocomplete="off" >
+            class="form-control" placeholder="{{placeHolder}}" autocomplete="off" >
     
         <!-- Loading icon -->
         <div class="fa fa-spinner fa-spin loader" *ngIf="controlDir && controlDir.control && controlDir.control.errors?.['pending']"></div>

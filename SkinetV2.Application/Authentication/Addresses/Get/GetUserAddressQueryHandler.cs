@@ -21,6 +21,8 @@ namespace SkinetV2.Application.Authentication.Addresses.Get
 
             if (user is null) return Errors.Users.InvalidCredentials;
 
+            if (user.Address is null) return new AddressResult(null, null, null, null, null);
+
             return new AddressResult(
                 user.Address.Street,
                 user.Address.PostalCode,

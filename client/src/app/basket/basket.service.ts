@@ -4,6 +4,7 @@ import { BehaviorSubject, map } from 'rxjs';
 import { Basket, BasketItem, BasketTotals, CustomerBasket } from '../shared/models/common/basket';
 import { environment } from 'src/environments/environment';
 import { Product } from '../shared/models/common/product';
+import { DeliveryMethod } from '../shared/models/common/delivery-method';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,8 @@ export class BasketService {
   private basketTotalSource = new BehaviorSubject<BasketTotals | null>(null);
   basketTotal$ = this.basketTotalSource.asObservable();
 
+  private shipping: number = 0;
+
   constructor(
     private http: HttpClient
   ) { }
@@ -24,8 +27,12 @@ export class BasketService {
     return this.http.get<Basket>(environment.apiUrl + 'basket?basketId=' + id)
       .pipe(
         map((basket: Basket) => {
-          this.basketSource.next(basket);
-          this.calculateBaksetTotals();
+          if(basket.basketItems.length > 0) {
+            this.basketSource.next(basket);
+            this.calculateBaksetTotals();
+          } else {
+            this.clearBasket();
+          }
         })
       );
   }
@@ -39,9 +46,20 @@ export class BasketService {
       error: (err: HttpErrorResponse) => console.log(err.message)
     });
   }
+
+  clearBasket(): void {
+    this.basketSource.next(null);
+    this.basketTotalSource.next(null);
+    localStorage.removeItem('basket_id');
+  }
   
   getCurrentBasketValue() {
     return this.basketSource.value;
+  }
+
+  setShippingPrice(deliveryMethod: DeliveryMethod) {
+    this.shipping = deliveryMethod.price;
+    this.calculateBaksetTotals();
   }
 
   addItemToBasket(item: Product, quantity = 1) {
@@ -89,13 +107,11 @@ export class BasketService {
     }
   }
 
-  private deleteBasket(basket: Basket) {
+  deleteBasket(basket: Basket) {
     return this.http.delete<boolean>(environment.apiUrl + "basket?basketId=" + basket.basketId).subscribe({
       next: () => {
         // reset the basket itself and the basket totals
-        this.basketSource.next(null);
-        this.basketTotalSource.next(null);
-        localStorage.removeItem('basket_id');
+        this.clearBasket();
       },
       error: (err: HttpErrorResponse) => console.error(err),
     });
@@ -104,7 +120,7 @@ export class BasketService {
   private calculateBaksetTotals() {
     const basket = this.getCurrentBasketValue();
 
-    var shipping = 0;
+    var shipping = this.shipping;
     var subtotal = basket?.basketItems.reduce((result: number, item: BasketItem) => (item.quantity * item.price) + result, 0) as number;
     var total = subtotal + shipping;
 

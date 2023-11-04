@@ -1,3 +1,29 @@
-<div class="container">
-    <h1>Checkout</h1>
+<div *ngIf="currentUser && (basket$ | async)" class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <app-stepper [linearModeSelected]="true" #appStepper>
+                <cdk-step [label]="'Address'" [completed]="checkoutForm.get('addressForm')?.valid">
+                    <app-checkout-address [currentUser]="currentUser" [checkoutForm]="checkoutForm"></app-checkout-address>
+                </cdk-step>
+                <cdk-step [label]="'Delivery'" [completed]="checkoutForm.get('deliveryForm')?.valid">
+                    <app-checkout-delivery [checkoutForm]="checkoutForm"></app-checkout-delivery>
+                </cdk-step>
+                <cdk-step [label]="'Review'">
+                    <app-checkout-review></app-checkout-review>
+                </cdk-step>
+                <cdk-step [label]="'Payment'">
+                    <app-checkout-payment [currentUser]="currentUser" [checkoutForm]="checkoutForm"></app-checkout-payment>
+                </cdk-step>
+            </app-stepper>
+        </div>
+        <div class="col-md-4">
+            <app-order-summary></app-order-summary>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!(basket$ | async)" class="container">
+    <h1>Basket is empty</h1>
+    <p>Please add items to your basket.</p>
+    <app-icon-button iconPosition="left" icon="fa fa-angle-left" className="btn btn-primary" label="Go back to shop" routerLink="/shop"></app-icon-button>
 </div>

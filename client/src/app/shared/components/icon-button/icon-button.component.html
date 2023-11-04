@@ -1,3 +1,21 @@
-<button class={{className}}>
-    <i class={{icon}}></i>
-</button>
+<div *ngIf="!step">
+    <button [disabled]="disabled" class={{className}}>
+        <i *ngIf="iconPosition === 'left'" class={{icon}}></i>
+        <span *ngIf="label"> {{label}} </span>
+        <i *ngIf="iconPosition === 'right'" class={{icon}}></i>
+    </button>
+</div>
+
+<div *ngIf="step">
+    <button [disabled]="disabled" *ngIf="step === 'next'" cdkStepperNext class={{className}}>
+        <i *ngIf="iconPosition === 'left'" class={{icon}}></i>
+        <span *ngIf="label"> {{label}} </span>
+        <i *ngIf="iconPosition === 'right'" class={{icon}}></i>
+    </button>
+    <button [disabled]="disabled" *ngIf="step === 'previous'" cdkStepperPrevious class={{className}}>
+        <i *ngIf="iconPosition === 'left'" class={{icon}}></i>
+        <span *ngIf="label"> {{label}} </span>
+        <i *ngIf="iconPosition === 'right'" class={{icon}}></i>
+    </button>
+</div>
+

@@ -9,6 +9,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import { StepperComponent } from './components/stepper/stepper.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BasketSummaryComponent } from './components/basket-summary/basket-summary.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -17,14 +22,19 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     IconButtonComponent,
     PaginationComponent,
     PaginationHeaderComponent,
-    OrderSummaryComponent
+    OrderSummaryComponent,
+    StepperComponent,
+    BasketSummaryComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    CdkStepperModule,
+    MatTooltipModule,
+    RouterModule,
     CarouselModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
   ],
   exports: [
     ButtonComponent,
@@ -33,9 +43,13 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     PaginationComponent,
     PaginationHeaderComponent,
     OrderSummaryComponent,
+    StepperComponent,
+    BasketSummaryComponent,
     CarouselModule,
     ReactiveFormsModule,
-    BsDropdownModule
+    BsDropdownModule,
+    CdkStepperModule,
+    MatTooltipModule
   ]
 })
 export class SharedModule { }

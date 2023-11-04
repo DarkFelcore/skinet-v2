@@ -1,6 +1,7 @@
 using ErrorOr;
 using MediatR;
 using SkinetV2.Application.common.Interfaces;
+using SkinetV2.Application.common.Specifications;
 using SkinetV2.Domain.Orders.Entities;
 
 namespace SkinetV2.Application.DeliveryMethods.All
@@ -16,7 +17,8 @@ namespace SkinetV2.Application.DeliveryMethods.All
 
         public async Task<ErrorOr<List<DeliveryMethod>>> Handle(GetAllDeliveryMethodsQuery query, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.DeliveryMethodRepository.AllAsync();
+            var spec = new DeliveryMethodsWithPriceDescSpecification();
+            return await _unitOfWork.DeliveryMethodRepository.GetListAsync(spec);
         }
     }
 }

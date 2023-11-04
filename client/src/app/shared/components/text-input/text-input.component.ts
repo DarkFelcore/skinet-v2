@@ -8,9 +8,11 @@ import { AbstractControl, NgControl, Validators } from '@angular/forms';
 })
 export class TextInputComponent {
   @ViewChild('input', {static : true}) input: ElementRef; // reference to the input field
-  @Input() type : 'email' | 'text' | 'password' = 'text'; // input type (password, text, date, button, ...)
-  @Input() label: string; // Label that describes the input field
+  @Input() type? : 'email' | 'text' | 'password' = 'text'; // input type (password, text, date, button, ...)
+  @Input() label?: string; // Label that describes the input field
+  @Input() placeHolder?: string;
   @Input() patternErrorMessage?: string;
+  @Input() isDisabled: boolean = false;
 
   constructor(
     @Self() public controlDir: NgControl

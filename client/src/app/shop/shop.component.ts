@@ -29,7 +29,7 @@ export class ShopComponent {
 
   searchInputValue: string;
 
-  @ViewChild('search') searchTerm : TextInputComponent;
+  @ViewChild('search') searchTerm : ElementRef;
 
   constructor(
     private shopService: ShopService,
@@ -101,12 +101,12 @@ export class ShopComponent {
   }
   
   onSearch() {
-    this.shopParams.search = this.searchTerm.controlDir.control?.value;
+    this.shopParams.search = this.searchTerm.nativeElement.value;
     this.paginationService.setCurrentPage(1);
   }
   
   onReset() {
-    this.searchTerm.controlDir.control?.setValue('');
+    this.searchTerm.nativeElement.value = null;
     this.shopParams = new ShopParams();
     this.paginationService.setCurrentPage(1);
     this.shopService.setResetValue(true);
