@@ -213,6 +213,10 @@ namespace SkinetV2.Infrastructure.Migrations
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
+                            b1.Property<string>("ProductType")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
                             b1.HasKey("OrderItemId");
 
                             b1.ToTable("OrderItems");

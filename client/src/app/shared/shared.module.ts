@@ -14,6 +14,7 @@ import { StepperComponent } from './components/stepper/stepper.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BasketSummaryComponent } from './components/basket-summary/basket-summary.component';
 import { RouterModule } from '@angular/router';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { RouterModule } from '@angular/router';
     CdkStepperModule,
     MatTooltipModule,
     RouterModule,
+    PaginationModule.forRoot(),
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
   ],
@@ -49,7 +51,8 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     BsDropdownModule,
     CdkStepperModule,
-    MatTooltipModule
+    MatTooltipModule,
+    PaginationModule
   ]
 })
 export class SharedModule { }

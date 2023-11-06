@@ -21,7 +21,14 @@ export class AuthService {
     private router: Router,
   ) { }
 
-  loadCurrentUser() {
+  loadCurrentUser(token: string) {
+
+    if(token === null) {
+      this.currentUserSource.next(null)
+      // Need to return an observable because the calling method expects it
+      return of(null);
+    }
+
     return this.http.get<User>(environment.apiUrl + 'auth').pipe(
       map((user: User | null) => {
         if(user) {

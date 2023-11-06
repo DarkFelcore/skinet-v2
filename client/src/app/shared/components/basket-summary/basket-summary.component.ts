@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BasketService } from 'src/app/basket/basket.service';
-import { Basket, BasketItem } from '../../models/common/basket';
+import { Basket, BasketItem, BasketTotals } from '../../models/common/basket';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class BasketSummaryComponent implements OnInit {
 
   basket$: Observable<Basket | null>;
+  basketTotals$: Observable<BasketTotals | null>;
 
   @Input() isBasket: boolean = true;
 
@@ -24,6 +25,7 @@ export class BasketSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.basket$ = this.basketService.basket$;
+    this.basketTotals$ = this.basketService.basketTotal$;
   }
 
   decrementBasketItemQuantity(item: BasketItem) {

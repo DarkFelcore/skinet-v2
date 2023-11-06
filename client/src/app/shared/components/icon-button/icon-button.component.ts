@@ -12,6 +12,7 @@ export class IconButtonComponent implements OnInit {
   @Input() iconPosition?: 'left' | 'right' = 'right';
   @Input() step?: 'next' | 'previous';
   @Input() disabled?: boolean = false;
+  @Input() loading?: boolean = false;
 
   ngOnInit(): void {
   }

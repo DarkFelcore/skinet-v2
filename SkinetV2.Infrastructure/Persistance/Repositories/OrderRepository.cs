@@ -1,4 +1,5 @@
 using SkinetV2.Application.common.Interfaces;
+using SkinetV2.Application.common.Specifications;
 using SkinetV2.Domain.Baskets;
 using SkinetV2.Domain.Orders;
 using SkinetV2.Domain.Orders.Entities;
@@ -22,7 +23,7 @@ namespace SkinetV2.Infrastructure.Persistance.Repositories
                 var product = productsInBasket[i];
                 var basketItem = basket.BasketItems[i];
 
-                var itemOrdered = new ProductItemOrdered(product.ProductId.Value, product.Name, product.PictureUrl);
+                var itemOrdered = new ProductItemOrdered(product.ProductId.Value, product.Name, product.PictureUrl, product.ProductType.Name);
                 var orderItem = new OrderItem(itemOrdered, product.Price, basketItem.Quantity);
 
                 orderItems.Add(orderItem);
@@ -32,7 +33,7 @@ namespace SkinetV2.Infrastructure.Persistance.Repositories
             var subtotal = orderItems.Sum(x => x.Price * x.Quantity);
 
             // Create order
-            var order = new Order(orderItems, buyerEmail, shippingAddress, deliveryMethod, subtotal);
+            var order = new Order(orderItems, buyerEmail, shippingAddress, deliveryMethod, subtotal, basket.PaymentIntentId!);
 
             await _context.AddAsync(order);
             await _context.SaveChangesAsync();

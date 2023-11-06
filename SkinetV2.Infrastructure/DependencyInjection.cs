@@ -1,6 +1,8 @@
 using System.Text;
+using Azure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -46,6 +48,9 @@ namespace SkinetV2.Infrastructure
                 var config = ConfigurationOptions.Parse(configuration.GetConnectionString("Redis")!, true);
                 return ConnectionMultiplexer.Connect(config);
             });
+            
+            // Caching = single instance throughout the lifetime of the application
+            services.AddSingleton<IResponseCacheService, ResponseCacheService>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -54,6 +59,9 @@ namespace SkinetV2.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IDeliveryMethodRepository, DeliveryMethodRepository>();
+            services.AddScoped<IPaymentService, PaymentService>();
+
+
             return services;
         }
 

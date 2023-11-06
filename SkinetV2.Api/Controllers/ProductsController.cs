@@ -11,7 +11,7 @@ using SkinetV2.Contracts.ProductTypes;
 using SkinetV2.Application.Helpers;
 using SkinetV2.Contracts.Common;
 using SkinetV2.Application.Products.Get.Count;
-using Microsoft.AspNetCore.Authorization;
+using SkinetV2.Api.Common.Helpers;
 
 namespace SkinetV2.Api.Controllers
 {
@@ -26,6 +26,7 @@ namespace SkinetV2.Api.Controllers
             _mapper = mapper;
         }
 
+        [Cached(600)]
         [HttpGet]
         public async Task<IActionResult> GetAllProductsAsync([FromQuery] ProductSpecParams productSpecParams)
         {
@@ -44,6 +45,7 @@ namespace SkinetV2.Api.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [Cached(600)]
         public async Task<IActionResult> GetProductAsync(string id)
         {
             var query = new GetProductQuery(id);
@@ -55,6 +57,7 @@ namespace SkinetV2.Api.Controllers
             );
         }
 
+        [Cached(600)]
         [HttpGet("brands")]
         public async Task<IActionResult> GetAllProductBrandsAsync()
         {
@@ -69,6 +72,7 @@ namespace SkinetV2.Api.Controllers
             );
         }
 
+        [Cached(600)]
         [HttpGet("types")]
         public async Task<IActionResult> GetAllProductTypesAsync()
         {

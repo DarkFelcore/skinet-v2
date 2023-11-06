@@ -20,7 +20,7 @@ namespace SkinetV2.Domain.Orders
             return Subtotal + DeliveryMethod.Price;
         }
 
-        public Order(List<OrderItem> orderItems, string buyerEmail, Address shipToAddress, DeliveryMethod deliveryMethod, decimal subtotal)
+        public Order(List<OrderItem> orderItems, string buyerEmail, Address shipToAddress, DeliveryMethod deliveryMethod, decimal subtotal, string paymentIntentId)
         {
             OrderId = new OrderId(Guid.NewGuid());
             OrderItems = orderItems;
@@ -28,6 +28,7 @@ namespace SkinetV2.Domain.Orders
             ShipToAddress = shipToAddress;
             DeliveryMethod = deliveryMethod;
             Subtotal = subtotal;
+            PaymentIntentId = paymentIntentId;
         }
 
         public Order()

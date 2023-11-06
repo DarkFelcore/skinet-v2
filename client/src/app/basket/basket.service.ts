@@ -5,6 +5,7 @@ import { Basket, BasketItem, BasketTotals, CustomerBasket } from '../shared/mode
 import { environment } from 'src/environments/environment';
 import { Product } from '../shared/models/common/product';
 import { DeliveryMethod } from '../shared/models/common/delivery-method';
+import { CheckoutService } from '../checkout/checkout.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +24,23 @@ export class BasketService {
     private http: HttpClient
   ) { }
 
+  createPaymentIntent() {
+    return this.http.post<Basket>(environment.apiUrl + 'payments?basketId=' + this.getCurrentBasketValue()?.basketId, {})
+      .pipe(
+        map((basket: Basket) => {
+          this.basketSource.next(basket);
+        })
+      );
+  }
+
   getBasket(id: string) {
+    this.shipping = 0;
     return this.http.get<Basket>(environment.apiUrl + 'basket?basketId=' + id)
       .pipe(
         map((basket: Basket) => {
           if(basket.basketItems.length > 0) {
             this.basketSource.next(basket);
+            this.shipping = basket.shippingPrice ?? 0;
             this.calculateBaksetTotals();
           } else {
             this.clearBasket();
@@ -48,6 +60,7 @@ export class BasketService {
   }
 
   clearBasket(): void {
+    this.shipping = 0;
     this.basketSource.next(null);
     this.basketTotalSource.next(null);
     localStorage.removeItem('basket_id');
@@ -59,7 +72,13 @@ export class BasketService {
 
   setShippingPrice(deliveryMethod: DeliveryMethod) {
     this.shipping = deliveryMethod.price;
+    const basket = this.getCurrentBasketValue();
+    if(basket) {
+      basket.deliveryMethodId = deliveryMethod.deliveryMethodId;
+      basket.shippingPrice = deliveryMethod.price;
+    }
     this.calculateBaksetTotals();
+    this.setBasket(basket as Basket);
   }
 
   addItemToBasket(item: Product, quantity = 1) {

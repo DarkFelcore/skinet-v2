@@ -1,6 +1,38 @@
-<p>checkout-payment works!</p>
+<div class="mt-4" [formGroup]="checkoutForm">
+    <div class="row">
+        <div class="form-group col-md-12" formGroupName="paymentForm">
+            <app-text-input label="Name on card" formControlName="nameOnCard"></app-text-input>
+        </div>
+        <div class="form-group col-md-6">
+            <div #cardNumber class="form-control p-3"></div>
+            <ng-container class="mt-2" *ngIf="cardErrors">
+                <span class="text-danger">{{cardErrors}}</span>
+            </ng-container>
+        </div>
+        <div class="form-group col-md-3">
+            <div #cardExpiry class="form-control p-3"></div>
+        </div>
+        <div class="form-group col-md-3">
+            <div #cardCvc class="form-control p-3"></div>
+        </div>
+    </div>
+</div>
 
 <div class="float-none d-flex justify-content-between flex-column flex-lg-row mt-5">
-    <app-icon-button iconPosition="left" icon="fa fa-angle-left" className="btn btn-outline-primary" step="previous" label="Back to review"></app-icon-button>
-    <app-icon-button (click)="submitOrder()" iconPosition="right" icon="fa fa-angle-right" className="btn btn-primary" label="Submit order"></app-icon-button>
-</div>
+    <app-icon-button 
+        iconPosition="left" 
+        icon="fa fa-angle-left" 
+        className="btn btn-outline-primary" 
+        step="previous" 
+        label="Back to review">
+    </app-icon-button>
+    <app-icon-button 
+        [loading]="loading" 
+        [disabled]="loading || checkoutForm.get('paymentForm')?.invalid || !cardNumberValid || !cardExpiryValid || !cardCvcValid" 
+        (click)="submitOrder()" 
+        iconPosition="right" 
+        icon="fa fa-angle-right" 
+        className="btn btn-primary" 
+        label="Submit order">
+    </app-icon-button>
+</div>  

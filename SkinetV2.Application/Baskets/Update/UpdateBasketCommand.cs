@@ -7,6 +7,10 @@ namespace SkinetV2.Application.Baskets.Update
 {
     public record UpdateBasketCommand(
         string BasketId,
-        List<BasketItem> BasketItems
+        List<BasketItem> BasketItems,
+        Guid? DeliveryMethodId,
+        string? ClientSecret,
+        string? PaymentIntentId,
+        decimal? ShippingPrice
     ) : IRequest<ErrorOr<CustomerBasket>>;
 }

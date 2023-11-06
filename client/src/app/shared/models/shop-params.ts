@@ -4,6 +4,7 @@ export class ShopParams {
     brandId = EMPTY_GUID;
     typeId = EMPTY_GUID;
     sort = 'name';
-    page = 1;
-    search = ""
+    pageNumber = 1;
+    pageSize = 6;
+    search: string;
 }

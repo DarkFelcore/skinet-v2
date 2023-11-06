@@ -22,7 +22,7 @@ export class CheckoutService implements OnInit {
   getDeliveryMethods() : Observable<DeliveryMethod[]> {
     return this.http.get<DeliveryMethod[]>(environment.apiUrl + 'orders/deliverymethods');
   }
-
+  
   createOrder(order: CreateOrderRequest) {
     return this.http.post<Order>(environment.apiUrl + 'orders', order);
   }

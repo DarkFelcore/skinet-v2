@@ -1,4 +1,6 @@
 <div class="container">
-    <h1>Thanks for your order</h1>
-    <p>Follow up your order here: {{order.orderId}}</p>
+    <h1>Thank you. Your order is confirmed</h1>
+    <p>Your order is not shipped yet, but this is to be expected as we are not a real store!</p>
+    <app-button *ngIf="order" className="btn btn-success" label="View your order" routerLink="/orders/{{order.orderId}}"></app-button>
+    <app-button *ngIf="!order" className="btn btn-success" label="View your orders" routerLink="/orders"></app-button>
 </div>

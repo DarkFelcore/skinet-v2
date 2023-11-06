@@ -1,0 +1,19 @@
+<div *ngIf="order" class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <app-order-basket-summary [orderItems]="order.orderItems"></app-order-basket-summary>
+        </div>
+        <div class="col-md-4">
+            <app-order-summary
+                subtotal={{order.subtotal}}
+                shippingPrice={{order.deliveryMethod.price}}
+                total={{order.total}}>
+            </app-order-summary>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!order" class="container">
+    <h1>No orders to preview yet</h1>
+    <app-icon-button className="btn btn-primary" iconPosition="left" icon="fa fa-angle-left" label="Go back to shop" routerLink="/shop"></app-icon-button>
+</div>

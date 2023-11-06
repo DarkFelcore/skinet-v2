@@ -1,0 +1,46 @@
+<div class="table-responsive" *ngIf="orderItems.length > 0">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 px-3 text-uppercase">Product</div>
+                </th>
+                <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Price</div>
+                </th>
+                <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Quantity</div>
+                </th>
+                <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Total</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of orderItems">
+                <th scope="row">
+                    <div class="p-2">
+                        <img style="width: 6rem;" class="img-fluid" src={{item.itemOrdered.pictureUrl}} alt={{item.itemOrdered.productName}}>
+                        <div class="ms-3 d-inline-block align-middle">
+                            <h5 class="mb-0 product-name">
+                                <a class="text-dark" routerLink="/shop/{{item.itemOrdered.productItemId}}">{{item.itemOrdered.productName}}</a>
+                            </h5>
+                            <span class="text-muted font-weigth-normal font-italic d-block">Type: {{item.itemOrdered.productType}}</span>
+                        </div>
+                    </div>
+                </th>
+                <td class="align-middle">
+                    <strong>{{item.price | currency: 'EUR'}}</strong>
+                </td>
+                <td class="align-middle">
+                    <div class="ps-4">
+                        <span style="font-size: 1.3rem; font-weight: bold;">{{item.quantity}}</span>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <strong>{{(item.price * item.quantity) | currency: 'EUR'}}</strong>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

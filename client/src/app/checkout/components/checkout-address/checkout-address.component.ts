@@ -29,11 +29,8 @@ export class CheckoutAddressComponent implements OnInit {
     const address: Address = { street: addressForm.street, postalCode: addressForm.postalCode, provice: addressForm.provice, city: addressForm.city, country: addressForm.country };
     this.authService.updateUserAddress(address).subscribe({
       next: (address: Address) => {
-        this.checkoutForm.get('addressForm')?.reset({
-          ...address,
-          firstName: this.currentUser.firstName,
-          lastName: this.currentUser.lastName
-        });
+        this.checkoutForm.get('addressForm')?.reset(address);
+        this.checkoutForm.get('addressForm')?.patchValue({ firstName: this.currentUser.firstName, lastName: this.currentUser.lastName });
         this.toastrService.success('Address successfully changed!')
       },
       error: (err: HttpErrorResponse) => {

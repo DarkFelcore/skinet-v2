@@ -9,11 +9,10 @@ export const AuthGuard: CanActivateFn = (route, state) => {
   
   return authService.currentUser$.pipe(
     map(auth => {
-      if(auth) return true;
+      if(auth && localStorage.getItem('token')) return true;
       // If the user logs in he/she will be redirected to the page they requested as a non-logged in user, but now as a logged in user (access granted).
       router.navigate(["/auth/login"], { queryParams: { returnUrl: state.url } });
       return false;
     })
   )
-
 };

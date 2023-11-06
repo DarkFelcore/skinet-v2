@@ -1,21 +1,24 @@
 <div *ngIf="!step">
     <button [disabled]="disabled" class={{className}}>
-        <i *ngIf="iconPosition === 'left'" class={{icon}}></i>
+        <i *ngIf="iconPosition === 'left' && !loading" class={{icon}}></i>
         <span *ngIf="label"> {{label}} </span>
-        <i *ngIf="iconPosition === 'right'" class={{icon}}></i>
+        <i *ngIf="iconPosition === 'right' && !loading" class={{icon}}></i>
+        <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
     </button>
 </div>
 
 <div *ngIf="step">
     <button [disabled]="disabled" *ngIf="step === 'next'" cdkStepperNext class={{className}}>
-        <i *ngIf="iconPosition === 'left'" class={{icon}}></i>
+        <i *ngIf="iconPosition === 'left' && !loading" class={{icon}}></i>
         <span *ngIf="label"> {{label}} </span>
-        <i *ngIf="iconPosition === 'right'" class={{icon}}></i>
+        <i *ngIf="iconPosition === 'right' && !loading" class={{icon}}></i>
+        <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
     </button>
     <button [disabled]="disabled" *ngIf="step === 'previous'" cdkStepperPrevious class={{className}}>
         <i *ngIf="iconPosition === 'left'" class={{icon}}></i>
         <span *ngIf="label"> {{label}} </span>
         <i *ngIf="iconPosition === 'right'" class={{icon}}></i>
+        <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
     </button>
 </div>
 

@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'basket', loadChildren: () => import('./basket/basket.module').then(mod => mod.BasketModule), data: { breadcrumb: { skip: true } } },
   { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(mod => mod.CheckoutModule), data: { breadcrumb: { skip: true } }, canActivate: [AuthGuard] },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule), data: { breadcrumb: { skip: true } } },
+  { path: 'orders', loadChildren: () => import('./order/order.module').then(mod => mod.OrderModule), data: { breadcrumb: { skip: true } }, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];
 

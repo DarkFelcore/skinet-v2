@@ -1,0 +1,24 @@
+<div *ngIf="orders && orders.length > 0" class="container">
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Order</th>
+            <th scope="col">Date</th>
+            <th scope="col">Total</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders" routerLink="/orders/{{order.orderId}}" style="cursor: pointer;">
+            <td scope="row">{{order.orderId}}</td>
+            <td>{{formatOrderDate(order.orderDate)}}</td>
+            <td>{{order.total | currency: 'EUR'}}</td>
+            <td>{{order.status}}</td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="orders && orders.length == 0" class="container">
+  <h1>No orders to preview yet</h1>
+  <app-icon-button className="btn btn-primary" iconPosition="left" icon="fa fa-angle-left" label="Go back to shop" routerLink="/shop"></app-icon-button>
+</div>

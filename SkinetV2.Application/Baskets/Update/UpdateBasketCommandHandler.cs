@@ -18,7 +18,7 @@ namespace SkinetV2.Application.Baskets.Create
 
         public async Task<ErrorOr<CustomerBasket>> Handle(UpdateBasketCommand command, CancellationToken cancellationToken)
         {
-            var customerBasket = new CustomerBasket(command.BasketId, command.BasketItems);
+            var customerBasket = new CustomerBasket(command.BasketId, command.BasketItems, command.DeliveryMethodId, command.ClientSecret, command.PaymentIntentId, command.ShippingPrice);
             var basket = await _basketRepository.UpdateBasketAsync(customerBasket);
 
             if(basket is null)

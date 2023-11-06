@@ -4,7 +4,7 @@ import { User } from '../shared/models/common/user';
 import { AuthService } from '../auth/auth.service';
 import { Address } from '../shared/models/common/address';
 import { BasketService } from '../basket/basket.service';
-import { Basket } from '../shared/models/common/basket';
+import { Basket, BasketTotals } from '../shared/models/common/basket';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -17,6 +17,7 @@ export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;
 
   basket$: Observable<Basket | null>;
+  basketTotals$: Observable<BasketTotals | null>;
 
   constructor(
     private fb : FormBuilder,
@@ -26,6 +27,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.basket$ = this.basketService.basket$;
+    this.basketTotals$ = this.basketService.basketTotal$;
     this.loadCurrentUser();
   }
 
@@ -50,12 +52,14 @@ export class CheckoutComponent implements OnInit {
   }
 
   loadCurrentUser() {
-    this.authService.loadCurrentUser().subscribe({
+    const token: string = localStorage.getItem('token') as string;
+    this.authService.loadCurrentUser(token).subscribe({
       next: (user: User | null) => {
         if(user) {
           this.currentUser = user;
           this.createCheckoutForm()
           this.loadCurrentUserAddress();
+          this.getDeliveryMethodValue();
         }
       },
     });
@@ -69,5 +73,12 @@ export class CheckoutComponent implements OnInit {
         }
       },
     });
+  }
+
+  getDeliveryMethodValue() {
+    const basket = this.basketService.getCurrentBasketValue();
+    if(basket?.deliveryMethodId !== null) {
+      this.checkoutForm.get('deliveryForm')?.get('deliveryMethod')?.patchValue(basket?.deliveryMethodId);
+    }
   }
 }

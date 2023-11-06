@@ -2,7 +2,6 @@ using ErrorOr;
 using MediatR;
 using SkinetV2.Application.common.Interfaces;
 using SkinetV2.Domain.Baskets;
-using SkinetV2.Domain.Common.Errors;
 
 namespace SkinetV2.Application.Baskets.Get
 {

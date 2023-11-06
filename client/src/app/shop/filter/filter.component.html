@@ -1,8 +1,11 @@
 <div>
     <div class="mb-3">
         <h5 class="text-warning ms-3 mb-2">Sort</h5>
-        <select [(ngModel)]="selectedSort" (change)="onSortSelected($event)" class="form-select">
-            <option *ngFor="let option of sortOptions" [value]="option.value">
+        <select [(ngModel)]="shopParams.sort" (change)="onSortSelected($event)" class="form-select">
+            <option 
+                *ngFor="let option of sortOptions" 
+                [selected]="shopParams.sort === option.value" 
+                [value]="option.value">
             {{option.name}}
           </option>
         </select>
@@ -14,7 +17,7 @@
                 *ngFor="let brand of brands" 
                 (click)="onBrandSelected(brand.productBrandId)" 
                 class="list-group-item list-group-item-action"
-                [class.active]="brand.productBrandId === brandIdSelected"
+                [class.active]="brand.productBrandId === shopParams.brandId"
                 [value]="brand.productBrandId">
                 {{brand.name}}
             </li>
@@ -27,7 +30,7 @@
             *ngFor="let type of types" 
             (click)="onTypeSelected(type.productTypeId)" 
             class="list-group-item list-group-item-action"
-            [class.active]="type.productTypeId === typeIdSelected"
+            [class.active]="type.productTypeId === shopParams.typeId"
             [value]="type.productTypeId">
                 {{type.name}}
             </li>

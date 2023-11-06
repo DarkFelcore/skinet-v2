@@ -1,7 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Pagination } from './shared/models/common/pagination';
-import { Product } from './shared/models/common/product';
 import { BasketService } from './basket/basket.service';
 import { AuthService } from './auth/auth.service';
 
@@ -30,7 +27,8 @@ export class AppComponent implements OnInit {
   }
 
   loadCurrentUser() {
-    this.authService.loadCurrentUser().subscribe({
+    const token: string = localStorage.getItem('token') as string;
+    this.authService.loadCurrentUser(token).subscribe({
       next: () => {},
       error: () => this.authService.clearUser()
     });

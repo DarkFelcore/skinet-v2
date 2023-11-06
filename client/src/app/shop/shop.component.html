@@ -7,7 +7,8 @@
                 (brandEvent)="onBrandSelected($event)" 
                 (typeEvent)="onTypeSelected($event)"
                 [brands]="brands" 
-                [types]="types">
+                [types]="types"
+                [shopParams]="shopParams">
             </app-filter>
             </ng-container>
         </section>
@@ -16,9 +17,9 @@
                 <!-- Pagination header -->
                 <app-pagination-header
                     [products]="products"
-                    [totalCount]="totalCount!"
-                    [pageIndex]="pageIndex!"
-                    [pageSize]="pageSize!">
+                    [totalCount]="totalProductCount"
+                    [pageIndex]="shopParams.pageNumber"
+                    [pageSize]="shopParams.pageSize">
                 </app-pagination-header>
                 <div class="d-flex align-items-center gap-2">
                     <div class="form-group">
@@ -39,9 +40,10 @@
             <!-- Pagination -->
             <div class="d-flex justify-content-center my-2" *ngIf="products && products.length > 0">
                 <app-pagination 
-                    [pageSize]="pageSize"
-                    [pageIndex]="pageIndex"
-                    [totalCount]="totalCount">
+                    (onPageChangedEmitter)="onPageChanged($event)"
+                    [pageSize]="shopParams.pageSize"
+                    [pageNumber]="shopParams.pageNumber"
+                    [totalCount]="totalProductCount">
                 </app-pagination>
             </div>
 
